@@ -1,0 +1,43 @@
+name: Build kreative Webseite
+
+on:
+  push:
+    branches: [ main ]
+  pull_request:
+    branches: [ main ]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    # Damit alle Befehle in deinem Unterordner laufen
+    defaults:
+      run:
+        working-directory: Kreative-Webseite
+
+    steps:
+      - name: Checkout repo
+        uses: actions/checkout@v4
+
+      - name: Use Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: 'npm'
+          cache-dependency-path: Kreative-Webseite/package-lock.json
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Build
+        run: npm run build
+
+      - name: Upload build artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: kreative-webseite-build
+          # HIER den richtigen Build-Ordner eintragen
+          path: |
+            Kreative-Webseite/dist
+            # oder Kreative-Webseite/build
+            # oder Kreative-Webseite/out
