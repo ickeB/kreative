@@ -1,0 +1,47 @@
+@import "tailwindcss";
+@import url('https://fonts.googleapis.com/css2?family=Pacifico&display=swap');
+
+:root {
+  --color-primary-green: #2d5016;
+  --color-medium-green: #4a7c2c;
+  --color-light-green: #7ba05b;
+  --color-accent-green: #a8c995;
+  --color-white: #ffffff;
+  --color-off-white: #f8f9f6;
+  --font-decorative: 'Pacifico', cursive;
+}
+
+body {
+  font-family: 'Inter', system-ui, -apple-system, sans-serif;
+  background-color: var(--color-off-white);
+  color: var(--color-primary-green);
+}
+
+h1 {
+  font-size: 3rem;
+  font-weight: 700;
+  line-height: 1.2;
+  letter-spacing: -0.02em;
+}
+
+h2 {
+  font-size: 2rem;
+  font-weight: 600;
+  line-height: 1.3;
+}
+
+h3 {
+  font-size: 1.5rem;
+  font-weight: 600;
+  line-height: 1.4;
+}
+
+p {
+  font-size: 1rem;
+  line-height: 1.6;
+}
+
+button {
+  font-size: 1rem;
+  font-weight: 500;
+}
