@@ -2,16 +2,13 @@ name: Build kreative website
 
 on:
   push:
-    branches: [ main ]
-  pull_request:
+    branches:
+      - main
+  workflow_dispatch:
 
 jobs:
   build:
     runs-on: ubuntu-latest
-
-    defaults:
-      run:
-        working-directory: Kreative-Webseite
 
     steps:
       - name: Checkout repository
@@ -21,20 +18,18 @@ jobs:
         uses: actions/setup-node@v4
         with:
           node-version: 20
-          cache: 'npm'
-          # wichtig: Pfad relativ zum Repo-Root
-          cache-dependency-path: 'Kreative-Webseite/package-lock.json'
 
       - name: Install dependencies
-        run: npm ci
+        run: npm install
+        working-directory: Kreative-Webseite
 
       - name: Build project
         run: npm run build
+        working-directory: Kreative-Webseite
 
       - name: Upload build artifact
         uses: actions/upload-artifact@v4
         with:
-          name: kreative-webseite-build
-          # Pfad relativ zum Repo-Root
-          path: |
-            Kreative-Webseite/build
+          name: kreative-build
+          # Pfad relativ zum Repository-Root!
+          path: Kreative-Webseite/build
