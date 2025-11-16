@@ -1,18 +1,14 @@
-# .github/workflows/build-kreative.yml
-name: Build Kreative Website
+name: Build kreative website
 
 on:
   push:
     branches: [ main ]
-    paths:
-      - 'Kreative-Webseite/**'
-  workflow_dispatch:
+  pull_request:
 
 jobs:
   build:
     runs-on: ubuntu-latest
 
-    # Alle "run"-Steps laufen im Unterordner "Kreative-Webseite"
     defaults:
       run:
         working-directory: Kreative-Webseite
@@ -26,25 +22,19 @@ jobs:
         with:
           node-version: 20
           cache: 'npm'
-          # Pfad ist relativ zum Repo-Root, nicht zur working-directory
-          cache-dependency-path: |
-            Kreative-Webseite/package-lock.json
+          # wichtig: Pfad relativ zum Repo-Root
+          cache-dependency-path: 'Kreative-Webseite/package-lock.json'
 
       - name: Install dependencies
         run: npm ci
-        # Falls npm ci zickt, kannst du notfalls auch:
-        # run: npm install
 
       - name: Build project
         run: npm run build
 
-      - name: Show build output (debug)
-        run: ls -R
-
       - name: Upload build artifact
         uses: actions/upload-artifact@v4
         with:
-          name: kreative-build
-          # Wichtig: Pfad wieder relativ zum Repo-Root!
+          name: kreative-webseite-build
+          # Pfad relativ zum Repo-Root
           path: |
-            Kreative-Webseite/build/**
+            Kreative-Webseite/build
